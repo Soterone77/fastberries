@@ -1,7 +1,6 @@
-from unicodedata import category
+from sqlalchemy import Column, String, DateTime, Integer, ForeignKey, func
+from sqlalchemy.orm import relationship
 
-from sqlalchemy import Column, String, Text, DateTime, Integer, ForeignKey, \
-    func
 from app.core.db import Base
 
 
@@ -12,3 +11,6 @@ class Products(Base):
     price = Column(Integer, nullable=False)
     stock = Column(Integer, )
     created_at = Column(DateTime, default=func.now(), nullable=False)
+    updated_at = Column(DateTime, default=func.now(), nullable=False)
+    favorited_by = relationship('FavoriteProducts',
+                                back_populates='product')
